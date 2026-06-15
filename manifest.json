@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Botanical ChatGPT",
+  "version": "1.0.0",
+  "description": "A warm botanical, CSS-only theme for ChatGPT.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ],
+      "css": [
+        "styles/botanical-chatgpt.css"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
