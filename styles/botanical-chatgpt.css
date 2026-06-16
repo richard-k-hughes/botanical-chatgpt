@@ -14,10 +14,12 @@
   --botanical-surface-soft: #ece8d5;
   --botanical-leaf: #17613f;
   --botanical-leaf-deep: #113d31;
+  --botanical-chrome: #24483b;
   --botanical-leaf-bright: #218343;
   --botanical-lime: #91b52b;
   --botanical-gold: #d6a83b;
   --botanical-ink: #17352b;
+  --botanical-response-ink: #2d493d;
   --botanical-muted: #647168;
   --botanical-border: rgb(32 91 62 / 18%);
   --botanical-shadow: 0 18px 45px rgb(38 57 36 / 13%);
@@ -33,7 +35,7 @@
   --sidebar-surface-secondary: var(--botanical-leaf) !important;
   --sidebar-surface-tertiary: #2b6a4d !important;
   --sidebar-surface-hover: rgb(255 255 255 / 10%) !important;
-  --composer-surface-primary: rgb(251 248 235 / 96%) !important;
+  --composer-surface-primary: var(--botanical-chrome) !important;
   --message-surface: #dce8cb !important;
   --surface-hover: rgb(33 131 67 / 10%) !important;
   --bg-elevated-primary: var(--botanical-surface) !important;
@@ -110,6 +112,16 @@ nav[aria-label="Chat history"] {
   color: #f2f4e9 !important;
 }
 
+/* Newer ChatGPT layouts place dark header/footer bands around the nav. */
+aside:has(nav[aria-label="Sidebar"]),
+aside:has(nav[aria-label="Chat history"]),
+[data-testid="sidebar"],
+[data-testid="sidebar-container"],
+div:has(> nav[aria-label="Sidebar"]),
+div:has(> nav[aria-label="Chat history"]) {
+  background: var(--botanical-chrome) !important;
+}
+
 nav[aria-label="Sidebar"] *,
 nav[aria-label="Chat history"] * {
   --text-primary: #f2f4e9 !important;
@@ -140,37 +152,59 @@ nav[aria-label="Chat history"] [role="button"]:hover {
 
 /* Composer */
 form:has(#prompt-textarea) {
-  border: 1px solid var(--botanical-border);
+  border: 1px solid rgb(145 181 43 / 38%);
   border-radius: 1.8rem;
-  background: rgb(251 248 235 / 94%) !important;
+  background:
+    radial-gradient(circle at 94% 16%, rgb(145 181 43 / 14%), transparent 8rem),
+    linear-gradient(145deg, #203c32, var(--botanical-chrome)) !important;
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 80%) inset,
-    var(--botanical-shadow);
+    0 1px 0 rgb(255 255 255 / 10%) inset,
+    0 14px 34px rgb(17 61 49 / 24%);
   backdrop-filter: blur(18px) saturate(115%);
   -webkit-backdrop-filter: blur(18px) saturate(115%);
 }
 
+/* ChatGPT may paint the rounded composer on an inner wrapper. */
+form:has(#prompt-textarea) > div,
+form:has(#prompt-textarea) [data-type="unified-composer"],
+form:has(#prompt-textarea) [data-testid="composer"],
+[data-testid="composer"]:has(#prompt-textarea) {
+  background: transparent !important;
+  color: #f2f4e9 !important;
+}
+
+/* Replace the dark fade/footer behind the composer with a soft leaf tone. */
+main :where(div, section):has(> form:has(#prompt-textarea)) {
+  background:
+    linear-gradient(
+      to top,
+      rgb(36 72 59 / 94%) 45%,
+      rgb(36 72 59 / 62%) 72%,
+      transparent
+    ) !important;
+}
+
 form:has(#prompt-textarea):focus-within {
-  border-color: rgb(33 131 67 / 48%);
+  border-color: rgb(145 181 43 / 58%);
   box-shadow:
-    0 0 0 3px rgb(145 181 43 / 15%),
-    0 18px 45px rgb(38 57 36 / 16%);
+    0 0 0 3px rgb(145 181 43 / 18%),
+    0 14px 34px rgb(17 61 49 / 28%);
 }
 
 #prompt-textarea,
 textarea[aria-label="Chat with ChatGPT"] {
-  color: var(--botanical-ink) !important;
-  caret-color: var(--botanical-leaf-bright) !important;
+  color: #f2f4e9 !important;
+  caret-color: var(--botanical-lime) !important;
 }
 
 #prompt-textarea p[data-placeholder]::before {
-  color: #788278 !important;
+  color: rgb(242 244 233 / 55%) !important;
 }
 
 #composer-plus-btn,
 [data-testid="composer-speech-button"],
 form:has(#prompt-textarea) button {
-  color: var(--botanical-leaf) !important;
+  color: rgb(145 181 43 / 92%) !important;
 }
 
 form:has(#prompt-textarea) button[data-testid="send-button"],
@@ -183,6 +217,25 @@ form:has(#prompt-textarea) button[aria-label^="Send"] {
 /* Conversation cards and content */
 article[data-testid^="conversation-turn-"] {
   color: var(--botanical-ink);
+}
+
+[data-message-author-role="assistant"] {
+  --text-primary: var(--botanical-response-ink) !important;
+  --text-secondary: #53675d !important;
+  color: var(--botanical-response-ink) !important;
+}
+
+[data-message-author-role="assistant"] :where(
+    .markdown,
+    .prose,
+    p,
+    li,
+    dd,
+    dt,
+    strong,
+    em
+  ) {
+  color: var(--botanical-response-ink) !important;
 }
 
 [data-message-author-role="user"] {

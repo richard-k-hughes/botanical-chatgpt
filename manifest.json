@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Botanical ChatGPT",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A warm botanical, CSS-only theme for ChatGPT.",
   "content_scripts": [
     {

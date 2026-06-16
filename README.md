@@ -84,9 +84,11 @@ Open `styles/botanical-chatgpt.css`. The editable palette is at the top:
 --botanical-surface: #fbf8eb;
 --botanical-leaf: #17613f;
 --botanical-leaf-deep: #113d31;
+--botanical-chrome: #24483b;
 --botanical-leaf-bright: #218343;
 --botanical-lime: #91b52b;
 --botanical-gold: #d6a83b;
+--botanical-response-ink: #2d493d;
 ```
 
 Change those values, reload the extension, and refresh ChatGPT.
